@@ -46,17 +46,29 @@ body{
 .form_control input:focus{
     outline: none;
 }
-.form_control_checkbox{
-    padding-top: 20px;
-    width: 100%;
+.form_control-checkbox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px ;
+    
 }
-.form_control_checkbox label{
-    font-size: 1em;
+
+.form_control-checkbox input {
+    width: 30px ;
+
 }
-.form_control_checkbox p{
+.form_control-checkbox label{
+    margin: 0;
+    display: block;
+    padding: 0;
+}
+.form_control p{
+    padding-top: 10px;
     color: red;
-    text-align: center;
+    
     display: none;
+
 }
 
 .input_submit{

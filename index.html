@@ -12,34 +12,37 @@
     <div class="contenedor">
       <h2>Formulario</h2>
       <form action="" id="formulario" class="formulario">
+
         <div class="form_control">
           <label for="nombre">Ingrese su nombre</label>
-          <input type="text" id="nombre" placeholder="Gean Franco" maxlength="40" />
+          <input type="text" id="nombre" name="nombre" placeholder="Gean Franco" maxlength="40" />
           <p>Los datos ingresador son incorrectos!</p>
         </div>
         <div class="form_control">
           <label for="email">Ingrese su Email</label>
-          <input type="email" id="email" placeholder="ejemplo@gmail.com" />
+          <input type="email" id="email" name="email" placeholder="ejemplo@gmail.com" />
           <p>Los datos ingresador son incorrectos!</p>
         </div>
         <div class="form_control">
           <label for="apellido">Ingrese su numero de Telefono</label>
-          <input type="tel" id="telefono" placeholder="5678-738291" />
+          <input type="tel" id="telefono" name="telefono" placeholder="5678-738291" />
           <p>Los datos ingresador son incorrectos!</p>
         </div>
         <div class="form_control">
           <label for="contraseña">Ingrese su Contraseña</label>
-          <input type="password" id="contraseña" placeholder="***********" />
+          <input type="password" id="contraseña" name="contrasena" placeholder="***********" />
           <p>Los datos ingresador son incorrectos!</p>
         </div>
-        <div class="form_control_checkbox">
-            <label for="contraseña"><input type="checkbox" id="checkbox" /> Acepte los terminos y condiciones</label>
-            
+        <div class="< form_control form_control-checkbox">
+            <input type="checkbox" id="checkbox" name="checkbox""/>
+            <label for="contraseña"> Acepte los terminos y condiciones</label>
             <p>Por favor acepte los terminos!</p>
-          </div>
-
-        <input  class="input_submit" type="submit" value="Enviar"  />
-        <!-- <button id="button" class="input_submit" type="button"  >Enviar</button> -->
+        </div>
+          
+            <!-- <input  class="input_submit" type="submit" value="Enviar"  /> -->
+            
+        
+          <button id="button" class="input_submit" type="submit" disabled>Enviar</button>
       </form>
     </div>
 

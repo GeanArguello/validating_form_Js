@@ -1,189 +1,135 @@
 const formulario = document.getElementById("formulario");
-const nombre = document.getElementById("nombre");
-const telefono = document.getElementById("telefono");
-const email = document.getElementById("email");
-const contraseña = document.getElementById("contraseña");
-const submit = document.querySelector(".input_submit")
+
+const submit_btn = document.getElementById("button");
+
+const box_form = document.querySelectorAll('.form_control');
+
+const checkbox = document.getElementById('checkbox');
 
 
+const arrayCampos =[]
+const regexName = /^[a-zA-Z]*$/;
+const regexEmail = /^[\w]+@{1}[\w]+\.+[a-z]{2,3}$/;
+const regexTel = /^\(?\d{2}\)?[\s\.-]?\d{4}[\s\.-]?\d{4}$/;
+const regexContra = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+const errors = {
+  nombre: true,
+  email: true,
+  telefono: true,
+  contrasena: true,
+}
 
 
-  document.addEventListener('input', (e)=> {
-    e.preventDefault()
-    if(validarNombre() && validarEmail() && validarTelefono() && validarContraseña()){
-      submit.removeAttribute('disabled')
-    }else {
-      submit.setAttribute('disabled', true)
-    }
+// Itera el array de inputs y crea un evento que tiene una funcion para cada uno!
+box_form.forEach((box) =>{
+  const  input = box.querySelector('input');
+
+  input.addEventListener('input',(event)=>{
+    validationform(input)
   })
+})
 
 
+function validationform(input){
+  if (input.name === 'nombre'){
 
-function validarNombre(){
-    
-    const nombreValue = nombre.value.trim();
-    const regexName = /^[a-zA-Z '.-]*$/;
-
-    if (nombreValue.length >= 2 && nombreValue.length <= 20  && regexName.test(nombreValue)) {
-      set_correct(nombre);
-      //console.log(regexName.test(nombreValue));
-      return true
-  
-    } else if (nombreValue === "") {
-      set_default(nombre);
-      
-      return false
-    } else {
-      set_error(nombre, "Por favor rellena el campo");
-      return false
-      
-    }
-}
-function validarEmail() {
-  
-    const emailValue = email.value.trim();
-    // tuEmail = emailValue.toString();
-    const regexEmail = /^[\w]+@{1}[\w]+\.+[a-z]{2,3}$/;
-    if (regexEmail.test(emailValue)) {
-      set_correct(email);
-      return true
-    } else if (emailValue === "") {
-      set_default(email);
-      return false
-    } else {
-      set_error(email, "El Email Ingresado es incorrecto");
-      return false
-    }
-}
-//Validacion de Contraseña
-function validarContraseña() {
-    const contraseñaValue = contraseña.value.trim();
-    if (contraseñaValue.length >= 8 && contraseñaValue.length <= 15) {
-      set_correct(contraseña);
-      return true
-    } else if (contraseñaValue === "") {
-      set_default(contraseña);
-      return false
-    } else {
-      set_error(contraseña, "La contraseña debe tener al menos 8-20 digitos");
-      return false
-    }
-}
-
-function validarTelefono (){
-
-    const telefonoValue = telefono.value.trim();
-    if ( telefonoValue.length >=8 && telefonoValue.length <= 15){
-      set_correct(telefono);
-      return true
-    } else if(telefonoValue === ""){
-      set_default(telefono)
-      return false
+    if (regexName.test(input.value) && input.value.length >= 3 && input.value.length <= 20 ) {
+      set_correct(input)
     }else{
-      set_error(telefono, 'Por favor ingresa el numero de telefono correcto')
-      console.log(typeof telefonoValue)
-      return false
+      set_error(input, 'El campo debe contener al menos 3-20 caracteres, sin simbolos ni')
     }
-}
-
-/*
-// Validacion de Nombre
-function validarNombre(){
-  nombre.addEventListener("input", () => {
-    
-    const nombreValue = nombre.value.trim();
-    const regexName = /^[a-zA-Z '.-]*$/;
-
-    if (nombreValue.length >= 2 && nombreValue.length <= 20  && regexName.test(nombreValue)) {
-      set_correct(nombre);
-      console.log(regexName.test(nombreValue));
-      return true
-  
-    } else if (nombreValue === "") {
-      set_default(nombre);
-      submit.removeAttribute('disabled')
-    } else {
-      set_error(nombre, "Por favor rellena el campo");
-      
+    if (input.value.trim() === ''){
+      set_error(input, "Por favor Complete el campo con su nombre")
     }
-  });
-}
-  
+   incompleteForm();
+  }
+  if (input.name === 'email'){
 
-
-// Validacion de Email
-function validarEmail() {
-  email.addEventListener("input", () => {
-    const emailValue = email.value.trim();
-    // tuEmail = emailValue.toString();
-    const regexEmail = /^[\w]+@{1}[\w]+\.+[a-z]{2,3}$/;
-    if (regexEmail.test(emailValue)) {
-      set_correct(email);
-      return true
-    } else if (emailValue === "") {
-      set_default(email);
-    } else {
-      set_error(email, "El Email Ingresado es incorrecto");
-    }
-  });
-}
-
-//Validacion de Contraseña
-function validarContraseña() {
-  contraseña.addEventListener("input", () => {
-    const contraseñaValue = contraseña.value.trim();
-    if (contraseñaValue.length >= 8 && contraseñaValue.length <= 15) {
-      set_correct(contraseña);
-      return true
-    } else if (contraseñaValue === "") {
-      set_default(contraseña);
-    } else {
-      set_error(contraseña, "La contraseña debe tener al menos 8-20 digitos");
-    }
-  });
-}
-
-//Validacion de Telefono
-
-function validarTelefono (){
-  
-  telefono.addEventListener('input',()=>{
-    const telefonoValue = telefono.value.trim();
-    if ( telefonoValue.length <= 10 ){
-      set_correct(telefono);
-      return true
-      
-      
-    } else if(telefonoValue === ""){
-      set_default(telefono)
+    if (regexEmail.test(input.value)) {
+      set_correct(input)
     }else{
-      set_error(telefono, 'Por favor ingresa el numero de telefono correcto')
-      console.log(typeof telefonoValue)
+      set_error(input, 'Por favor ingrese su email correctamente')
     }
-  })
+    if (input.value.trim() === ''){
+      set_error(input, "Por favor Complete el campo con su email")
+    }
+    incompleteForm();
+  }
+  if (input.name === 'telefono'){
+   
+    if (regexTel.test(input.value)) {
+      set_correct(input)
+    }else{
+      set_error(input, 'El campo deber contener su numero de telefono')
+    }
+    if (input.value.trim() === ''){
+      set_error(input, "Por favor Complete el campo con su numero de telefono")
+    }
+    incompleteForm();
+  }
+  if (input.name === 'contrasena'){
+  
+    if (regexContra.test(input.value)) {
+      set_correct(input)
+    }else{
+      set_error(input, 'El campo debe contener mínimo ocho caracteres, al menos una letra y un número')
+    }
+    if (input.value.trim() === ''){
+      set_error(input, "Por favor Complete el campo con su contraseña")
+    }
+    incompleteForm();
+  }
+  if (input.name === 'checkbox'){
+    const check = checkbox.checked;
+    if (check){
+      set_correct(checkbox)
+    }else{
+      set_error(checkbox, 'Por favor acepta los terminos y condiciones')
+    }
+    incompleteForm();
+  }
 }
 
-*/
+
+function incompleteForm(){
+  if(errors.nombre){
+    submit_btn.setAttribute('disabled', true)
+  }else {
+    submit_btn.removeAttribute('disabled')
+  }
+  if(errors.email){
+    submit_btn.setAttribute('disabled', true)
+  }else {
+    submit_btn.removeAttribute('disabled')
+  }
+  if(errors.telefono){
+    submit_btn.setAttribute('disabled', true)
+  }else {
+    submit_btn.removeAttribute('disabled')
+  }
+  if(errors.contrasena){
+    submit_btn.setAttribute('disabled', true)
+  }else {
+    submit_btn.removeAttribute('disabled')
+  }
+  
+}
+
+
+
+
 
 // Funciones de Errores y Validaciones
 
-function set_default(input) {
-  const grupoCampos = input.parentElement;
-  const parrafo = grupoCampos.querySelector("p");
-  parrafo.style.display = "none";
-  input.style.border = "";
-  parrafo.innerText = "";
-  submit.setAttribute('disabled', true)
-  
-}
+
 function set_error(input, msj) {
   const formCotrol = input.parentElement;
   const parrafo = formCotrol.querySelector("p");
   input.style.border = "2px solid rgb(190, 36, 9)";
   parrafo.style.display = "block";
   parrafo.innerText = msj;
-  submit.setAttribute('disabled', true)
-
+  errors[input.name] = true;
 }
 function set_correct(input) {
   const grupoCampos = input.parentElement;
@@ -191,16 +137,6 @@ function set_correct(input) {
   input.style.border = "2px solid rgb(2, 184, 2)";
   parrafo.style.display = "none";
   parrafo.innerText = "";
-  
-  
-  
-  
-  
+  errors[input.name] = false;
 }
 
-/* validarContraseña()
-validarEmail()
-validarNombre()
-validarTelefono()
-
- */
